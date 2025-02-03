@@ -14,11 +14,11 @@ try {
     $generator = new ContentGenerator($_ENV['OPENAI_API_KEY']);
 
     echo "Testing joke generation...\n";
-    $joke = $generator->generateJoke();
+    $joke = $generator->generate('joke');
     echo "Joke: " . $joke . "\n\n";
 
     echo "Testing quote generation...\n";
-    $quote = $generator->generateQuote();
+    $quote = $generator->generate('quote');
     echo "Quote: " . $quote . "\n";
 
 } catch (Exception $e) {
