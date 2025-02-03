@@ -13,7 +13,7 @@ class ContentGenerator {
     // Define content types and their corresponding prompts
     private array $contentTypes = [
         'joke' => [
-            'prompt' => "Tell me a short, clean, family-friendly joke%s. Respond with just the joke text, no explanations or additional context.",
+            'prompt' => "Tell me a short and unique joke%s that is clever and unpredictable. Respond with just the joke text, no explanations or additional context. Please don't repeat yourself.",
             'supports_topic' => true
         ],
         'quote' => [
