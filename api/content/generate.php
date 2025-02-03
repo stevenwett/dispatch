@@ -1,4 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+header('Content-Type: application/json');
+
+// Debug path resolution
+error_log("Current directory: " . __DIR__);
+error_log("Looking for bootstrap at: " . __DIR__ . '/../../bootstrap.php');
+
 header('Content-Type: application/json');
 require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../../includes/ContentGenerator.php';
