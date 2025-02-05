@@ -16,8 +16,50 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joke Generator</title>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    
+    <!-- Primary Meta Tags -->
+    <title>AI Joke Generator - Get Fresh, Custom Jokes Instantly | Byte-sized Laughs</title>
+    <meta name="title" content="AI Joke Generator - Get Fresh, Custom Jokes Instantly">
+    <meta name="description" content="Generate clever, original jokes about any topic using AI. Our joke generator creates unique, customized humor instantly. Try it for free and get byte-sized laughs on demand!">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jokes.stevenwett.com/">
+    <meta property="og:title" content="AI Joke Generator - Custom Jokes Instantly">
+    <meta property="og:description" content="Generate clever, original jokes about any topic using AI. Get byte-sized laughs on demand!">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jokes.stevenwett.com/">
+    <meta property="twitter:title" content="AI Joke Generator - Custom Jokes Instantly">
+    <meta property="twitter:description" content="Generate clever, original jokes about any topic using AI. Get byte-sized laughs on demand!">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="joke generator, AI jokes, custom jokes, funny jokes, humor generator, comedy AI, joke maker">
+    <meta name="author" content="Steven Wett">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AI Joke Generator",
+        "description": "Generate clever, original jokes about any topic using AI technology.",
+        "url": "https://jokes.stevenwett.com",
+        "applicationCategory": "Entertainment",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Steven Wett"
+        }
+    }
+    </script>
 
     <style>
     /* Smooth fade-in animation for content */
