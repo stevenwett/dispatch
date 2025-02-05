@@ -11,25 +11,16 @@ class ContentGenerator {
     private Client $client;
     private string $model = "gpt-3.5-turbo";
 
-    // Define content types and their corresponding prompts
     private array $contentTypes = [
         'joke' => [
-            'prompt' => "Tell me a short and unique joke%s that is clever and unpredictable. Respond with just the joke text, no explanations or additional context. Please don't repeat yourself.",
-            'supports_topic' => true
+            'prompt' => "Create a clever, original joke%s. Avoid common formats. Just the joke text.",
+            'supports_topic' => true,
+            'system_prompt' => "You are a witty joke writer who creates original, unexpected humor. Never use common formats or clichés."
         ],
         'quote' => [
-            'prompt' => "Share an inspiring quote. Include the author if known. Respond with just the quote and author, no additional context.",
+            'prompt' => "Share an inspiring quote with author.",
             'supports_topic' => false
         ]
-        // Add new content types here following the same pattern
-        // 'riddle' => [
-        //     'prompt' => "Create a clever riddle%s. Provide just the riddle text.",
-        //     'supports_topic' => true
-        // ],
-        // 'fact' => [
-        //     'prompt' => "Share an interesting fact%s. Be concise and direct.",
-        //     'supports_topic' => true
-        // ]
     ];
 
     public function __construct(string $apiKey) {
@@ -47,23 +38,14 @@ class ContentGenerator {
         ]);
     }
 
-    /**
-     * Get list of supported content types
-     */
     public function getSupportedTypes(): array {
         return array_keys($this->contentTypes);
     }
 
-    /**
-     * Check if content type supports topics
-     */
     public function supportsTopics(string $type): bool {
         return isset($this->contentTypes[$type]) && $this->contentTypes[$type]['supports_topic'];
     }
 
-    /**
-     * Generate content of any supported type
-     */
     public function generate(string $type, ?string $topic = null): string {
         if (!isset($this->contentTypes[$type])) {
             throw new Exception("Unsupported content type: $type");
@@ -73,26 +55,30 @@ class ContentGenerator {
         $topicPhrase = $topic && $config['supports_topic'] ? " about " . $topic : "";
         $prompt = sprintf($config['prompt'], $topicPhrase);
         
-        return $this->generateContent($prompt);
+        return $this->generateContent($prompt, $config['system_prompt'] ?? null);
     }
 
-    private function generateContent(string $prompt): string {
+    private function generateContent(string $prompt, ?string $systemPrompt = null): string {
         try {
+            $messages = [
+                [
+                    'role' => 'system',
+                    'content' => $systemPrompt ?? 'Be concise and direct.'
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $prompt
+                ]
+            ];
+
             $response = $this->client->post('chat/completions', [
                 'json' => [
                     'model' => $this->model,
-                    'messages' => [
-                        [
-                            'role' => 'system',
-                            'content' => 'You are a helpful assistant that generates content. Be concise and direct.'
-                        ],
-                        [
-                            'role' => 'user',
-                            'content' => $prompt
-                        ]
-                    ],
+                    'messages' => $messages,
                     'max_tokens' => 150,
-                    'temperature' => 0.7
+                    'temperature' => 0.9,
+                    'presence_penalty' => 0.6,
+                    'frequency_penalty' => 0.6
                 ]
             ]);
 

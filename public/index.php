@@ -3,43 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Content Generator</title>
+    <title>Joke Generator</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-8">
     <div class="max-w-2xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">Content Generator</h1>
-            <p class="text-gray-600">Generate jokes and inspirational quotes on demand</p>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Joke Generator</h1>
+            <p class="text-gray-600">Byte-sized laughs</p>
         </div>
 
         <!-- Main Card -->
-        <div class="bg-white rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl">
-            <!-- Content Type Selection -->
-            <div class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-2">What would you like to generate?</label>
-                <select id="contentType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                    <option value="joke">A Funny Joke</option>
-                    <option value="quote">An Inspirational Quote</option>
-                </select>
-            </div>
-            
+        <div class="bg-white rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl">            
             <!-- Topic Input -->
-            <div id="topicContainer" class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Topic (optional)</label>
+            <div class="mb-8">
+                <label class="block text-sm font-medium text-gray-700 mb-2">What should the joke be about?</label>
                 <div class="relative">
-                    <input type="text" id="topic" 
+                    <input type="search" id="topic" 
                            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" 
-                           placeholder="e.g., programming, animals, food...">
+                           placeholder="e.g., dogs, pizza, programming...">
                 </div>
-                <p class="mt-2 text-sm text-gray-500">Leave blank for a random topic</p>
+                <p class="mt-2 text-sm text-gray-500">Leave blank for a random joke</p>
             </div>
             
             <!-- Generate Button -->
             <button id="generate" 
                     class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-[1.02]">
-                Generate Content
+                Make me laugh!
             </button>
             
             <!-- Loading Indicator -->
@@ -49,7 +40,7 @@
                     <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
                     <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
                 </div>
-                <p class="text-center text-gray-600 mt-4">Generating your content...</p>
+                <p class="text-center text-gray-600 mt-4">Coming up with something funny...</p>
             </div>
 
             <!-- Content Display -->
@@ -64,25 +55,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const contentType = document.getElementById('contentType');
-            const topicContainer = document.getElementById('topicContainer');
-            const topic = document.getElementById('topic');
             const generateBtn = document.getElementById('generate');
+            const topic = document.getElementById('topic');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const contentDisplay = document.getElementById('contentDisplay');
             const contentElement = document.getElementById('content');
             const errorElement = document.getElementById('error');
-
-            // Hide topic input for quotes
-            contentType.addEventListener('change', function() {
-                if (this.value === 'quote') {
-                    topicContainer.classList.add('opacity-0', 'h-0', 'mb-0');
-                    topicContainer.classList.remove('mb-8');
-                } else {
-                    topicContainer.classList.remove('opacity-0', 'h-0', 'mb-0');
-                    topicContainer.classList.add('mb-8');
-                }
-            });
 
             generateBtn.addEventListener('click', async function() {
                 try {
@@ -97,10 +75,10 @@
                     
                     // Prepare request data
                     const requestData = {
-                        type: contentType.value
+                        type: 'joke'
                     };
                     
-                    if (contentType.value === 'joke' && topic.value.trim()) {
+                    if (topic.value.trim()) {
                         requestData.topic = topic.value.trim();
                     }
 
@@ -123,7 +101,7 @@
                         contentElement.textContent = data.data.content;
                         contentDisplay.classList.add('animate-fade-in');
                     } else {
-                        throw new Error(data.error || 'Failed to generate content');
+                        throw new Error(data.error || 'Failed to generate joke');
                     }
 
                 } catch (error) {
