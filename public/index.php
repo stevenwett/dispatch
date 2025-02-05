@@ -1,3 +1,16 @@
+<?php
+require_once __DIR__ . '/../includes/ContentGenerator.php';
+use Includes\ContentGenerator;
+
+// Get 4-5 random topics for the placeholder
+$allTopics = ContentGenerator::getDefaultTopics();
+$randomKeys = array_rand($allTopics, 4);
+$placeholderTopics = array_map(function($index) use ($allTopics) {
+    return $allTopics[$index];
+}, $randomKeys);
+$placeholder = implode(', ', $placeholderTopics) . '...';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +18,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joke Generator</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <style>
+    /* Smooth fade-in animation for content */
+    @keyframes fade-in {
+        from { 
+            opacity: 0; 
+            transform: translateY(20px);
+            filter: blur(5px);
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0);
+            filter: blur(0);
+        }
+    }
+    
+    /* Bouncing dots animation */
+    @keyframes bounce-dot {
+        0%, 80%, 100% { 
+            transform: scale(0.8);
+            opacity: 0.5;
+        }
+        40% { 
+            transform: scale(1.2);
+            opacity: 1;
+        }
+    }
+
+    /* Loading dots */
+    .loading-dot {
+        animation: bounce-dot 1.4s infinite ease-in-out both;
+    }
+    
+    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+    .loading-dot:nth-child(3) { animation-delay: 0s; }
+    
+    .animate-fade-in {
+        animation: fade-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* Smooth transition for all elements */
+    * {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+</style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-8">
     <div class="max-w-2xl mx-auto">
@@ -21,35 +80,42 @@
                 <label class="block text-sm font-medium text-gray-700 mb-2">What should the joke be about?</label>
                 <div class="relative">
                     <input type="search" id="topic" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" 
-                           placeholder="e.g., dogs, pizza, programming...">
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" 
+        placeholder="<?php echo htmlspecialchars($placeholder); ?>">
                 </div>
                 <p class="mt-2 text-sm text-gray-500">Leave blank for a random joke</p>
             </div>
             
             <!-- Generate Button -->
             <button id="generate" 
-                    class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-[1.02]">
+                    class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-300 ease-in-out cursor-pointer hover:shadow-lg">
                 Make me laugh!
             </button>
             
             <!-- Loading Indicator -->
             <div id="loadingIndicator" class="hidden mt-8">
-                <div class="flex items-center justify-center space-x-2">
-                    <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce"></div>
-                    <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                    <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                <div class="flex items-center justify-center space-x-3">
+                    <div class="loading-dot w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <div class="loading-dot w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <div class="loading-dot w-3 h-3 bg-blue-500 rounded-full"></div>
                 </div>
-                <p class="text-center text-gray-600 mt-4">Coming up with something funny...</p>
+                <p class="text-center text-gray-600 mt-4 animate-fade-in">Coming up with something funny...</p>
             </div>
 
             <!-- Content Display -->
-            <div id="contentDisplay" class="mt-8 hidden">
+            <div id="contentDisplay" class="mt-8 hidden transform">
                 <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                     <div id="content" class="text-gray-800 text-lg leading-relaxed"></div>
                     <div id="error" class="text-red-500 mt-2"></div>
                 </div>
             </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8">
+            <p class="text-gray-500 text-sm">
+                Made by Steven Wett &copy; <?php echo date('Y'); ?>
+            </p>
         </div>
     </div>
 
@@ -62,7 +128,8 @@
             const contentElement = document.getElementById('content');
             const errorElement = document.getElementById('error');
 
-            generateBtn.addEventListener('click', async function() {
+            // Function to generate joke
+            async function generateJoke() {
                 try {
                     // Update button state
                     generateBtn.disabled = true;
@@ -113,18 +180,19 @@
                     generateBtn.disabled = false;
                     generateBtn.classList.remove('opacity-75');
                 }
+            }
+
+            // Listen for click on button
+            generateBtn.addEventListener('click', generateJoke);
+
+            // Listen for Enter key on input
+            topic.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    generateJoke();
+                }
             });
         });
     </script>
-
-    <style>
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fade-in 0.3s ease-out forwards;
-        }
-    </style>
 </body>
 </html>
