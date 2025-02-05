@@ -125,7 +125,7 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
                 <div class="relative">
                     <input type="search" id="topic" 
         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" 
-        placeholder="<?php echo htmlspecialchars($placeholder); ?>">
+        placeholder="Try <?php echo htmlspecialchars($placeholder); ?>">
                 </div>
                 <p class="mt-2 text-sm text-gray-500">Leave blank for a random joke</p>
             </div>
