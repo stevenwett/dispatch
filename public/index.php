@@ -24,13 +24,13 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jokes.stevenwett.com/">
+    <meta property="og:url" content="https://dispatch.stevenwett.com/">
     <meta property="og:title" content="AI Joke Generator - Custom Jokes Instantly">
     <meta property="og:description" content="Generate clever, original jokes about any topic using AI. Get byte-sized laughs on demand!">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://jokes.stevenwett.com/">
+    <meta property="twitter:url" content="https://dispatch.stevenwett.com/">
     <meta property="twitter:title" content="AI Joke Generator - Custom Jokes Instantly">
     <meta property="twitter:description" content="Generate clever, original jokes about any topic using AI. Get byte-sized laughs on demand!">
     
@@ -46,7 +46,7 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         "@type": "WebApplication",
         "name": "AI Joke Generator",
         "description": "Generate clever, original jokes about any topic using AI technology.",
-        "url": "https://jokes.stevenwett.com",
+        "url": "https://dispatch.stevenwett.com",
         "applicationCategory": "Entertainment",
         "operatingSystem": "Web Browser",
         "offers": {
@@ -60,6 +60,8 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         }
     }
     </script>
+
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
     <style>
     /* Smooth fade-in animation for content */
