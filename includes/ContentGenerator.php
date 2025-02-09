@@ -80,7 +80,7 @@ class ContentGenerator {
         'joke' => [
             'prompt' => "Create a clever, original joke%s. Avoid common formats. Just the joke text.",
             'supports_topic' => true,
-            'system_prompt' => "You are a witty joke writer who creates original, unexpected humor. Never use common formats or clichés."
+            'system_prompt' => "You are a witty joke writer who creates original, unexpected humor. Never use common formats or clichés. Avoid ladder jokes."
         ]
     ];
 
@@ -125,10 +125,10 @@ class ContentGenerator {
                     'model' => $this->model,
                     'messages' => $messages,
                     'max_tokens' => 150,
-                    'temperature' => 1.2,        // Increased for more randomness
+                    'temperature' => 1.8,
                     'presence_penalty' => 1.0,   // Increased to strongly discourage repetition
                     'frequency_penalty' => 1.0,  // Increased to encourage unique word choices
-                    'top_p' => 0.9              // Added to allow more creative token selection
+                    'top_p' => 0.9               // Added to allow more creative token selection
                 ]
             ]);
 
