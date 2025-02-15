@@ -302,18 +302,7 @@ class ContentGenerator {
         }
 
         // Randomly decide whether to add a variation (70% chance)
-        $variation = '';
-        if ($topic && $config['supports_topic'] && rand(1, 100) <= 70) {
-            // 25% chance of getting 2 variations, 75% chance of 1 variation
-            $numVariations = (rand(1, 100) <= 25) ? 2 : 1;
-            
-            $selectedVariations = [];
-            for ($i = 0; $i < $numVariations; $i++) {
-                $selectedVariations[] = $this->getNextVariation();
-            }
-            
-            $variation = implode(' and ', $selectedVariations);
-        }
+        $variation = $this->getNextVariation();
 
         $topicPhrase = $topic ? $topic . ', ' . $variation : "";
         $prompt = sprintf($config['prompt'], $topicPhrase, $variation ? " Include this perspective in the joke." : "");
