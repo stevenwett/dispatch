@@ -120,7 +120,112 @@ class ContentGenerator {
         'as a recipe blog post introduction',
         'during a laundromat adventure',
         'as a parking ticket appeal',
-        'through an elevator small talk'
+        'through an elevator small talk',
+        'as performed by a street mime',
+        'during a karaoke night gone wrong',
+        'as explained by someone who just woke up',
+        'through a series of passive-aggressive post-it notes',
+        'as interpreted by a bored museum security guard',
+        'during a couples\' dance lesson',
+        'as told by an overly competitive parent',
+        'through a series of emergency texts',
+        'as explained by someone who skimmed the wikipedia article',
+        'during an awkward blind date',
+        'as presented by a substitute teacher',
+        'through a series of workplace safety videos',
+        'as explained by someone who lost their voice',
+        'during a children\'s birthday party chaos',
+        'as interpreted by a fortune teller with poor reception',
+        'through an IKEA instruction manual',
+        'as explained by someone stuck in an elevator',
+        'during a black friday shopping spree',
+        'as understood by alien anthropologists',
+        'through a series of angry yelp reviews',
+        'as explained by a sleep-talking roommate',
+        'during a high school reunion',
+        'as interpreted by a method actor taking it too seriously',
+        'through an overly detailed personality test',
+        'as explained by someone pretending to be an expert',
+        'during a neighborhood watch meeting',
+        'as interpreted by an enthusiastic but wrong translator',
+        'through a series of missed connections ads',
+        'as explained by someone who\'s been awake for 48 hours',
+        'during a home shopping network presentation',
+        'as interpreted by a struggling psychic',
+        'through a series of chain emails',
+        'as explained by someone trying to sound important',
+        'during an open house tour',
+        'as interpreted by a coffee-deprived barista',
+        'through a series of autocorrect mistakes',
+        'as explained by someone in the wrong meeting',
+        'during a mindfulness retreat breakdown',
+        'as interpreted by a royal court jester',
+        'through a series of prophecies that keep getting revised',
+        'as explained by someone who thinks they\'re whispering',
+        'during an emergency drill gone wrong',
+        'as interpreted by a tired zoo keeper',
+        'through a series of dad jokes',
+        'as explained by someone trying to multitask',
+        'during a speed dating session',
+        'as interpreted by a haunted house actor',
+        'through a series of meditation prompts',
+        'as explained by someone who just learned about it',
+        'during a stand-up comedy open mic',
+        'as interpreted by a stressed wedding planner',
+        'through a series of live news updates',
+        'as explained by someone afraid of public speaking',
+        'during a museum audio tour',
+        'as interpreted by a confused time traveler',
+        'through a series of spam emails',
+        'as explained by someone reading from badly smudged notes',
+        'during a family photo session',
+        'as interpreted by a sleepwalking tour guide',
+        'through a series of movie trailer voice-overs',
+        'as explained by someone who lost their glasses',
+        'during an improv comedy scene',
+        'as interpreted by a retired circus performer',
+        'through a series of ancient scrolls',
+        'as explained by someone with hiccups',
+        'during a talent show audition',
+        'as interpreted by a professional whistler',
+        'through a series of morse code messages',
+        'as explained by someone in a rush',
+        'during a medieval feast',
+        'as interpreted by a child pretending to be an adult',
+        'through a series of football play diagrams',
+        'as explained by someone trying to break a world record',
+        'during a ghost hunting expedition',
+        'as interpreted by a mall santa on break',
+        'through a series of interpretive whale songs',
+        'as explained by someone who just finished a marathon',
+        'during a silent disco',
+        'as interpreted by a confused time period reenactor',
+        'through a series of airline safety demonstrations',
+        'as explained by someone practicing ventriloquism',
+        'during a book club discussion',
+        'as interpreted by a grumpy crossing guard',
+        'through a series of hand puppet shows',
+        'as explained by someone in zero gravity',
+        'during a renaissance faire',
+        'as interpreted by an overenthusiastic weatherperson',
+        'through a series of wrong number texts',
+        'as explained by someone trying to set a world record',
+        'during a children\'s puppet show',
+        'as interpreted by a frustrated driving instructor',
+        'through a series of skywriting attempts',
+        'as explained by someone speaking only in questions',
+        'during a craft fair demonstration',
+        'as interpreted by an eager student teacher',
+        'through a series of fortune cookies',
+        'as explained by someone trapped in a time loop',
+        'during a drum circle',
+        'as interpreted by an excited archeologist',
+        'through a series of viral TikTok trends',
+        'as explained by someone on a sugar rush',
+        'during a charity auction',
+        'as interpreted by a retired soap opera star',
+        'through a series of misheard song lyrics',
+        'as explained by someone trying to break bad news gently'
     ];
 
     public function __construct(string $apiKey) {
@@ -170,6 +275,20 @@ class ContentGenerator {
         'monday mornings', 'zoom meetings', 'office coffee', 'deadlines', 'email chains', 'work dress codes', 'water cooler chat', 'team building'
     ];
 
+    private function initializeShuffleBag(): void {
+        if (!isset($_SESSION['variation_bag']) || empty($_SESSION['variation_bag'])) {
+            $_SESSION['variation_bag'] = array_keys($this->topicVariations);
+            shuffle($_SESSION['variation_bag']);
+        }
+    }
+    
+    private function getNextVariation(): string {
+        $this->initializeShuffleBag();
+        $index = array_pop($_SESSION['variation_bag']);
+        return $this->topicVariations[$index];
+    }
+    
+
     public function generate(string $type, ?string $topic = null): array {
         if (!isset($this->contentTypes[$type])) {
             throw new Exception("Unsupported content type: $type");
@@ -184,18 +303,13 @@ class ContentGenerator {
 
         // Randomly decide whether to add a variation (70% chance)
         $variation = '';
-        if ($topic && $config['supports_topic']) {
+        if ($topic && $config['supports_topic'] && rand(1, 100) <= 70) {
             // 25% chance of getting 2 variations, 75% chance of 1 variation
             $numVariations = (rand(1, 100) <= 25) ? 2 : 1;
             
-            $variations = array_rand($this->topicVariations, $numVariations);
-            if (!is_array($variations)) {
-                $variations = [$variations];
-            }
-            
             $selectedVariations = [];
-            foreach ($variations as $index) {
-                $selectedVariations[] = $this->topicVariations[$index];
+            for ($i = 0; $i < $numVariations; $i++) {
+                $selectedVariations[] = $this->getNextVariation();
             }
             
             $variation = implode(' and ', $selectedVariations);

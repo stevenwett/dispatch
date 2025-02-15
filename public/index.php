@@ -107,6 +107,10 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
     * {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    a {
+        text-decoration: underline;
+    }
 </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-8">
@@ -158,7 +162,7 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         <!-- Footer -->
         <div class="text-center mt-8">
             <p class="text-gray-500 text-sm">
-                Made by Steven Wett &copy; <?php echo date('Y'); ?>
+                Made by <a href="https://stevenwett.com">Steven Wett</a> &copy; <?php echo date('Y'); ?>
             </p>
         </div>
     </div>
