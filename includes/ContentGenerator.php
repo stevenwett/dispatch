@@ -219,9 +219,9 @@ class ContentGenerator {
                     'model' => $this->model,
                     'messages' => $messages,
                     'max_tokens' => 200,
-                    'temperature' => 1.4,
-                    'presence_penalty' => 1.5,   // Increased to strongly discourage repetition
-                    'frequency_penalty' => 1.5,  // Increased to encourage unique word choices
+                    'temperature' => 1.6,
+                    'presence_penalty' => 1.8,   // Increased to strongly discourage repetition
+                    'frequency_penalty' => 1.8,  // Increased to encourage unique word choices
                     'top_p' => 0.9               // Added to allow more creative token selection
                 ]
             ]);
