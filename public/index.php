@@ -90,15 +90,6 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         }
     }
 
-    #placeholder {
-        opacity: 1;
-        transition: opacity 0.2s ease-in-out;
-    }
-
-    #topic::placeholder {
-        color: transparent;
-    }
-
     /* Loading dots */
     .loading-dot {
         animation: bounce-dot 1.4s infinite ease-in-out both;
@@ -130,14 +121,11 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         <div class="bg-white rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl">            
             <!-- Topic Input -->
             <div class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-2">What should the joke be about?</label>
+                <label class="block text-sm font-medium text-gray-900 mb-2">What should the joke be about?</label>
                 <div class="relative">
                     <input type="search" id="topic" 
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                    <span id="placeholder" 
-                        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none transition-opacity duration-200">
-                        <?php echo htmlspecialchars($placeholder); ?>
-                    </span>
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                        placeholder="<?php echo htmlspecialchars($placeholder); ?>">
                 </div>
                 <p class="mt-2 text-sm text-gray-500">Leave blank for a random joke</p>
             </div>
@@ -179,13 +167,12 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         document.addEventListener('DOMContentLoaded', function() {
             const generateBtn = document.getElementById('generate');
             const topic = document.getElementById('topic');
-            const placeholder = document.getElementById('placeholder');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const contentDisplay = document.getElementById('contentDisplay');
             const contentElement = document.getElementById('content');
             const errorElement = document.getElementById('error');
 
-            // Define default topics (get from PHP)
+            // Get topics from PHP
             const defaultTopics = <?php echo json_encode(ContentGenerator::getDefaultTopics()); ?>;
             
             function getRandomTopics(count) {
@@ -197,19 +184,15 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
                 const topics = getRandomTopics(3);
                 const newPlaceholder = topics.join(', ') + '...';
                 
-                placeholder.style.opacity = '0';
+                // Smoothly update the placeholder
+                topic.style.opacity = '0.5';
                 setTimeout(() => {
-                    placeholder.textContent = newPlaceholder;
-                    placeholder.style.opacity = '1';
+                    topic.placeholder = newPlaceholder;
+                    topic.style.opacity = '1';
                 }, 200);
             }
-            
-            // Hide/show placeholder based on input value
-            topic.addEventListener('input', function() {
-                placeholder.style.display = this.value ? 'none' : 'inline';
-            });
 
-            // Initial placeholder and start rotation
+            // Update placeholder periodically
             updatePlaceholder();
             setInterval(updatePlaceholder, 8000);
 
