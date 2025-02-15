@@ -49,10 +49,9 @@ try {
     echo json_encode([
         'success' => true,
         'data' => [
-            'type' => $data['type'],
-            'topic' => $topic,
-            'content' => $content['result'],
+            'topic' => $topic ?? '',
             'prompt' => $content['prompt'],
+            'content' => $content['result'],
         ]
     ]);
 
