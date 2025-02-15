@@ -218,7 +218,7 @@ class ContentGenerator {
                 'json' => [
                     'model' => $this->model,
                     'messages' => $messages,
-                    'max_tokens' => 200,
+                    'max_tokens' => 160,
                     'temperature' => 1.6,
                     'presence_penalty' => 1.8,   // Increased to strongly discourage repetition
                     'frequency_penalty' => 1.8,  // Increased to encourage unique word choices
