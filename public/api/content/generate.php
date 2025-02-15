@@ -51,7 +51,8 @@ try {
         'data' => [
             'type' => $data['type'],
             'topic' => $topic,
-            'content' => $content
+            'content' => $content['result'],
+            'prompt' => $content['prompt'],
         ]
     ]);
 
