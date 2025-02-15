@@ -90,6 +90,15 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         }
     }
 
+    #placeholder {
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    #topic::placeholder {
+        color: transparent;
+    }
+
     /* Loading dots */
     .loading-dot {
         animation: bounce-dot 1.4s infinite ease-in-out both;
@@ -124,8 +133,11 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
                 <label class="block text-sm font-medium text-gray-700 mb-2">What should the joke be about?</label>
                 <div class="relative">
                     <input type="search" id="topic" 
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200" 
-        placeholder="Try <?php echo htmlspecialchars($placeholder); ?>">
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                    <span id="placeholder" 
+                        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none transition-opacity duration-200">
+                        <?php echo htmlspecialchars($placeholder); ?>
+                    </span>
                 </div>
                 <p class="mt-2 text-sm text-gray-500">Leave blank for a random joke</p>
             </div>
@@ -167,12 +179,41 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
         document.addEventListener('DOMContentLoaded', function() {
             const generateBtn = document.getElementById('generate');
             const topic = document.getElementById('topic');
+            const placeholder = document.getElementById('placeholder');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const contentDisplay = document.getElementById('contentDisplay');
             const contentElement = document.getElementById('content');
             const errorElement = document.getElementById('error');
 
-            // Function to generate joke
+            // Define default topics (get from PHP)
+            const defaultTopics = <?php echo json_encode(ContentGenerator::getDefaultTopics()); ?>;
+            
+            function getRandomTopics(count) {
+                const shuffled = [...defaultTopics].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, count);
+            }
+            
+            function updatePlaceholder() {
+                const topics = getRandomTopics(3);
+                const newPlaceholder = topics.join(', ') + '...';
+                
+                placeholder.style.opacity = '0';
+                setTimeout(() => {
+                    placeholder.textContent = newPlaceholder;
+                    placeholder.style.opacity = '1';
+                }, 200);
+            }
+            
+            // Hide/show placeholder based on input value
+            topic.addEventListener('input', function() {
+                placeholder.style.display = this.value ? 'none' : 'inline';
+            });
+
+            // Initial placeholder and start rotation
+            updatePlaceholder();
+            setInterval(updatePlaceholder, 8000);
+
+            // Rest of your existing code...
             async function generateJoke() {
                 try {
                     // Update button state
@@ -226,10 +267,8 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
                 }
             }
 
-            // Listen for click on button
+            // Event listeners
             generateBtn.addEventListener('click', generateJoke);
-
-            // Listen for Enter key on input
             topic.addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
