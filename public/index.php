@@ -185,15 +185,18 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
             }
             
             function updatePlaceholder() {
-                const topics = getRandomTopics(3);
-                const newPlaceholder = topics.join(', ') + '...';
-                
-                // Smoothly update the placeholder
-                topic.style.opacity = '0.5';
-                setTimeout(() => {
-                    topic.placeholder = newPlaceholder;
-                    topic.style.opacity = '1';
-                }, 200);
+                // Only update if the input is empty
+                if (!topic.value.trim()) {
+                    const topics = getRandomTopics(3);
+                    const newPlaceholder = topics.join(', ') + '...';
+                    
+                    // Smoothly update the placeholder
+                    topic.style.opacity = '0.5';
+                    setTimeout(() => {
+                        topic.placeholder = newPlaceholder;
+                        topic.style.opacity = '1';
+                    }, 200);
+                }
             }
 
             // Update placeholder periodically
