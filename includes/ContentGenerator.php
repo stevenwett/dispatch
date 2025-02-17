@@ -299,12 +299,21 @@ class ContentGenerator {
             $topic = self::$defaultTopics[array_rand(self::$defaultTopics)];
         }
 
-        // Randomly decide whether to add a variation (70% chance)
-        $variation = $this->getNextVariation();
+        // 80% chance to add a variation
+        $useVariation = (mt_rand(1, 100) <= 80);
 
-        $topicPhrase = $topic ? $topic . ', ' . $variation : "";
-        $prompt = sprintf($config['prompt'], $topicPhrase, $variation ? " Include this perspective in the joke." : "");
-        
+        $topicPhrase = "";
+        if ($topic) {
+            if ($useVariation) {
+                $variation = $this->getNextVariation();
+                $topicPhrase = $topic . ', ' . $variation;
+                $prompt = sprintf($config['prompt'], $topicPhrase);
+            } else {
+                $topicPhrase = $topic;
+                $prompt = sprintf($config['prompt'], $topicPhrase);
+            }
+        }
+
         return [
             'prompt' => $prompt,
             'result' => $this->generateContent($prompt, $config['system_prompt'] ?? null),
