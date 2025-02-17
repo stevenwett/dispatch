@@ -9,7 +9,7 @@ use Exception;
 class ContentGenerator {
     private string $apiKey;
     private Client $client;
-    private string $model = "gpt-3.5-turbo";
+    private string $model = 'gpt-4o-mini';
     private array $topicVariations = [
         'as explained in a corporate PowerPoint presentation',
         'from the perspective of a nervous intern',
@@ -228,6 +228,7 @@ class ContentGenerator {
 
     public function __construct(string $apiKey) {
         $this->apiKey = $apiKey;
+        $this->model = $_ENV['OPENAI_MODEL'] ?? 'gpt-4o-mini';
         $this->initializeClient();
         
         // Initialize session if not already started
