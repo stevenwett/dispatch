@@ -52,6 +52,7 @@ try {
             'topic' => $topic ?? '',
             'prompt' => $content['prompt'],
             'content' => $content['result'],
+            'speaker' => $content['variation_speaker'] ?? ''
         ]
     ]);
 

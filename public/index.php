@@ -151,9 +151,10 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
             </div>
 
             <!-- Content Display -->
-            <div id="contentDisplay" class="mt-8 hidden transform">
+            <div id="contentDisplay" class="mt-8 hidden">
                 <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                     <div id="content" class="text-gray-800 text-lg leading-relaxed"></div>
+                    <div id="speaker" class="mt-3 text-gray-600 text-sm italic hidden"></div>
                     <div id="error" class="text-red-500 mt-2"></div>
                 </div>
             </div>
@@ -239,8 +240,23 @@ $placeholder = implode(', ', $placeholderTopics) . '...';
                     loadingIndicator.classList.add('hidden');
                     contentDisplay.classList.remove('hidden');
 
+                    const capitalizeFirstLetter = (text) => {
+                        return text.replace(/(^\w|\.\s+\w)/g, letter => letter.toUpperCase());
+                    }
+
                     if (data.success) {
                         contentElement.textContent = data.data.content;
+
+                        // Handle speaker display
+                        const speakerElement = document.getElementById('speaker');
+                        if (data.data.speaker) {
+                            const speaker = capitalizeFirstLetter(data.data.speaker);
+                            speakerElement.textContent = `— ${speaker}`;
+                            speakerElement.classList.remove('hidden');
+                        } else {
+                            speakerElement.classList.add('hidden');
+                        }
+
                         contentDisplay.classList.add('animate-fade-in');
                     } else {
                         throw new Error(data.error || 'Failed to generate joke');

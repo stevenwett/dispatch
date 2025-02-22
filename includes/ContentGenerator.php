@@ -11,219 +11,594 @@ class ContentGenerator {
     private Client $client;
     private string $model = 'gpt-4o-mini';
     private array $topicVariations = [
-        'as explained in a corporate PowerPoint presentation',
-        'from the perspective of a nervous intern',
-        'as discussed in a very serious board meeting',
-        'as written in a passive-aggressive office email',
-        'as explained by an overworked manager',
-        'during a team-building exercise gone wrong',
-        'as presented in an unnecessarily long meeting',
-        'from the perspective of the office coffee machine',
-        'as written in a company-wide memo',
-        'as debated during a workplace conflict resolution',
-        'as analyzed by overthinking philosophy majors',
-        'as explained by a sleep-deprived scientist',
-        'from the perspective of a demanding food critic',
-        'as described in an overly detailed legal document',
-        'if it was the subject of a passionate TED talk',
-        'as documented by a confused anthropologist',
-        'as studied in an unusual research paper',
-        'from the perspective of a perfectionist chef',
-        'as explained by a wilderness survival expert',
-        'as observed by a very particular museum curator',
-        'if it was the plot of a soap opera',
-        'as featured on a true crime podcast',
-        'as covered by local news at 11',
-        'if it was a viral social media trend',
-        'as explained through interpretive dance',
-        'as a documentary narrated by Morgan Freeman',
-        'as depicted in a badly translated movie',
-        'if it was a competitive reality show',
-        'as a morning talk show segment',
-        'as reviewed by harsh movie critics',
-        'from the perspective of your grandmother trying to use technology',
-        'as told by someone who\'s extremely enthusiastic but confused',
-        'by someone who thinks they\'re the first to discover it',
-        'from the view of a very patient kindergarten teacher',
-        'as explained by an overexcited tour guide',
-        'by someone who\'s clearly making it up as they go',
-        'as told by the world\'s worst storyteller',
-        'from the perspective of a retired superhero',
-        'as narrated by a conspiracy theorist',
-        'by someone who missed the point entirely',
-        'as observed by a time traveler from the 1800s',
-        'if it happened in medieval times',
-        'but set 100 years in the future',
-        'as misinterpreted by ancient historians',
-        'if it was discovered in an ancient tomb',
-        'as explained by a Victorian-era etiquette expert',
-        'during the height of the disco era',
-        'in the style of a Renaissance artist',
-        'during the first day of the internet',
-        'as remembered by someone with terrible memory',
-        'as interpreted by a group of gossiping squirrels',
-        'but it\'s secretly controlled by cats',
-        'from the perspective of a very judgmental house plant',
-        'as understood by migratory birds',
-        'as explained by a group of tired zoo animals',
-        'from the viewpoint of city pigeons',
-        'as discussed by garden gnomes',
-        'according to neighborhood dogs',
-        'as witnessed by confused penguins',
-        'from the perspective of a dramatic butterfly',
-        'as explained in a series of confusing emojis',
-        'through an AI chatbot having an existential crisis',
-        'as a mindfulness meditation gone wrong',
-        'during a video call with bad internet',
-        'as a social media influencer\'s sponsored post',
-        'through a dating app bio',
-        'as explained to tech support at 3 AM',
-        'during a failed attempt at meal prep',
-        'as interpreted by a smart home device',
-        'during a yoga class mishap',
-        'as an elaborate insurance claim',
-        'during an awkward family holiday dinner',
-        'as a misunderstood fortune cookie message',
-        'during an airport security check',
-        'as a mysterious crop circle pattern',
-        'during a wedding toast gone wrong',
-        'as interpreted by an art gallery critic',
-        'during a cooking show disaster',
-        'during a parent-teacher conference',
-        'as explained by an eccentric professor',
-        'during a weather forecast gone poetic',
-        'as a self-help book chapter',
-        'through an astronaut\'s mission log',
-        'as a archaeological discovery',
-        'by a librarian having a rough day',
-        'during a political campaign speech',
-        'as a motivational speaker losing motivation',
-        'through a celebrity\'s autobiography',
-        'as a scientific breakthrough announcement',
-        'as a superhero origin story',
-        'through interpretive modern dance',
-        'as a Broadway musical number',
-        'during a spelling bee competition',
-        'as a escape room puzzle',
-        'through an unboxing video',
-        'as a medieval tavern tale',
-        'during a magic trick explanation',
-        'as a nature documentary',
-        'through a choose-your-own-adventure story',
-        'during a GPS recalculation',
-        'as assembly instructions',
-        'through a customer service call',
-        'as a grocery store announcement',
-        'during a gym workout routine',
-        'through a pet training session',
-        'as a recipe blog post introduction',
-        'during a laundromat adventure',
-        'as a parking ticket appeal',
-        'through an elevator small talk',
-        'as performed by a street mime',
-        'during a karaoke night gone wrong',
-        'as explained by someone who just woke up',
-        'through a series of passive-aggressive post-it notes',
-        'as interpreted by a bored museum security guard',
-        'during a couples\' dance lesson',
-        'as told by an overly competitive parent',
-        'through a series of emergency texts',
-        'as explained by someone who skimmed the wikipedia article',
-        'during an awkward blind date',
-        'as presented by a substitute teacher',
-        'through a series of workplace safety videos',
-        'during a children\'s birthday party chaos',
-        'as interpreted by a fortune teller with poor reception',
-        'through an IKEA instruction manual',
-        'as explained by someone stuck in an elevator',
-        'during a black friday shopping spree',
-        'as understood by alien anthropologists',
-        'through a series of angry yelp reviews',
-        'as explained by a sleep-talking roommate',
-        'during a high school reunion',
-        'as interpreted by a method actor taking it too seriously',
-        'through an overly detailed personality test',
-        'as explained by someone pretending to be an expert',
-        'during a neighborhood watch meeting',
-        'as interpreted by an enthusiastic but wrong translator',
-        'through a series of missed connections ads',
-        'as explained by someone who\'s been awake for 48 hours',
-        'during a home shopping network presentation',
-        'as interpreted by a struggling psychic',
-        'through a series of chain emails',
-        'as explained by someone trying to sound important',
-        'during an open house tour',
-        'as interpreted by a coffee-deprived barista',
-        'through a series of autocorrect mistakes',
-        'as explained by someone in the wrong meeting',
-        'during a mindfulness retreat breakdown',
-        'as interpreted by a royal court jester',
-        'through a series of prophecies that keep getting revised',
-        'as explained by someone who thinks they\'re whispering',
-        'during an emergency drill gone wrong',
-        'as interpreted by a tired zoo keeper',
-        'through a series of dad jokes',
-        'as explained by someone trying to multitask',
-        'during a speed dating session',
-        'as interpreted by a haunted house actor',
-        'through a series of meditation prompts',
-        'as explained by someone who just learned about it',
-        'during a stand-up comedy open mic',
-        'as interpreted by a stressed wedding planner',
-        'through a series of live news updates',
-        'as explained by someone afraid of public speaking',
-        'during a museum audio tour',
-        'as interpreted by a confused time traveler',
-        'through a series of spam emails',
-        'as explained by someone reading from badly smudged notes',
-        'during a family photo session',
-        'as interpreted by a sleepwalking tour guide',
-        'through a series of movie trailer voice-overs',
-        'as explained by someone who lost their glasses',
-        'during an improv comedy scene',
-        'as interpreted by a retired circus performer',
-        'through a series of ancient scrolls',
-        'as explained by someone with hiccups',
-        'during a talent show audition',
-        'as interpreted by a professional whistler',
-        'through a series of morse code messages',
-        'as explained by someone in a rush',
-        'during a medieval feast',
-        'as interpreted by a child pretending to be an adult',
-        'through a series of football play diagrams',
-        'as explained by someone trying to break a world record',
-        'during a ghost hunting expedition',
-        'as interpreted by a mall santa on break',
-        'through a series of interpretive whale songs',
-        'as explained by someone who just finished a marathon',
-        'during a silent disco',
-        'as interpreted by a confused time period reenactor',
-        'through a series of airline safety demonstrations',
-        'as explained by someone practicing ventriloquism',
-        'during a book club discussion',
-        'as interpreted by a grumpy crossing guard',
-        'through a series of hand puppet shows',
-        'as explained by someone in zero gravity',
-        'during a renaissance faire',
-        'as interpreted by an overenthusiastic weatherperson',
-        'through a series of wrong number texts',
-        'as explained by someone trying to set a world record',
-        'during a children\'s puppet show',
-        'as interpreted by a frustrated driving instructor',
-        'through a series of skywriting attempts',
-        'as explained by someone speaking only in questions',
-        'during a craft fair demonstration',
-        'as interpreted by an eager student teacher',
-        'through a series of fortune cookies',
-        'as explained by someone trapped in a time loop',
-        'during a drum circle',
-        'as interpreted by an excited archeologist',
-        'through a series of viral TikTok trends',
-        'as explained by someone on a sugar rush',
-        'during a charity auction',
-        'as interpreted by a retired soap opera star',
-        'through a series of misheard song lyrics',
-        'as explained by someone trying to break bad news gently'
+        [
+            'perspective' => 'as explained in a corporate PowerPoint presentation',
+            'speaker' => 'enthusiastic middle manager'
+        ],
+        [
+            'perspective' => 'from the perspective of a nervous intern',
+            'speaker' => 'nervous intern'
+        ],
+        [
+            'perspective' => 'as discussed in a very serious board meeting',
+            'speaker' => 'eager executive'
+        ],
+        [
+            'perspective' => 'as written in a passive-aggressive office email',
+            'speaker' => 'a disgruntled office worker'
+        ],
+        [
+            'perspective' => 'as explained by an overworked manager',
+            'speaker' => 'overworked manager'
+        ],
+        [
+            'perspective' => 'during a team-building exercise gone wrong',
+            'speaker' => 'frustrated facilitator'
+        ],
+        [
+            'perspective' => 'as presented in an unnecessarily long meeting',
+            'speaker' => 'long-winded presenter'
+        ],
+        [
+            'perspective' => 'from the perspective of the office coffee machine',
+            'speaker' => 'exhausted coffee machine'
+        ],
+        [
+            'perspective' => 'as written in a company-wide memo',
+            'speaker' => 'overzealous administrator'
+        ],
+        [
+            'perspective' => 'as debated during a workplace conflict resolution',
+            'speaker' => 'diplomatic mediator'
+        ],
+        [
+            'perspective' => 'as analyzed by overthinking philosophy majors',
+            'speaker' => 'overthinking philosopher'
+        ],
+        [
+            'perspective' => 'as explained by a sleep-deprived scientist',
+            'speaker' => 'sleep-deprived scientist'
+        ],
+        [
+            'perspective' => 'from the perspective of a demanding food critic',
+            'speaker' => 'meticulous food critic'
+        ],
+        [
+            'perspective' => 'as described in an overly detailed legal document',
+            'speaker' => 'precise legal expert'
+        ],
+        [
+            'perspective' => 'if it was the subject of a passionate TED talk',
+            'speaker' => 'enthusiastic speaker'
+        ],
+        [
+            'perspective' => 'as documented by a confused anthropologist',
+            'speaker' => 'puzzled anthropologist'
+        ],
+        [
+            'perspective' => 'as studied in an unusual research paper',
+            'speaker' => 'eccentric researcher'
+        ],
+        [
+            'perspective' => 'from the perspective of a perfectionist chef',
+            'speaker' => 'perfectionist chef'
+        ],
+        [
+            'perspective' => 'as explained by a wilderness survival expert',
+            'speaker' => 'rugged survivalist'
+        ],
+        [
+            'perspective' => 'as observed by a very particular museum curator',
+            'speaker' => 'meticulous curator'
+        ],
+        [
+            'perspective' => 'if it was the plot of a soap opera',
+            'speaker' => 'dramatic soap star'
+        ],
+        [
+            'perspective' => 'as featured on a true crime podcast',
+            'speaker' => 'intense podcast host'
+        ],
+        [
+            'perspective' => 'as covered by local news at 11',
+            'speaker' => 'earnest news anchor'
+        ],
+        [
+            'perspective' => 'if it was a viral social media trend',
+            'speaker' => 'enthusiastic influencer'
+        ],
+        [
+            'perspective' => 'as explained through interpretive dance',
+            'speaker' => 'expressive dancer'
+        ],
+        [
+            'perspective' => 'as a documentary narrated by Morgan Freeman',
+            'speaker' => 'mesmerizing narrator'
+        ],
+        [
+            'perspective' => 'as depicted in a badly translated movie',
+            'speaker' => 'confused translator'
+        ],
+        [
+            'perspective' => 'if it was a competitive reality show',
+            'speaker' => 'intense reality host'
+        ],
+        [
+            'perspective' => 'as a morning talk show segment',
+            'speaker' => 'upbeat morning host'
+        ],
+        [
+            'perspective' => 'as reviewed by harsh movie critics',
+            'speaker' => 'cynical film critic'
+        ],
+        [
+            'perspective' => 'from the perspective of your grandmother trying to use technology',
+            'speaker' => 'bewildered grandmother'
+        ],
+        [
+            'perspective' => 'as told by someone who\'s extremely enthusiastic but confused',
+            'speaker' => 'enthusiastic novice'
+        ],
+        [
+            'perspective' => 'by someone who thinks they\'re the first to discover it',
+            'speaker' => 'oblivious pioneer'
+        ],
+        [
+            'perspective' => 'from the view of a very patient kindergarten teacher',
+            'speaker' => 'patient teacher'
+        ],
+        [
+            'perspective' => 'as explained by an overexcited tour guide',
+            'speaker' => 'overexcited guide'
+        ],
+        [
+            'perspective' => 'by someone who\'s clearly making it up as they go',
+            'speaker' => 'improvisational expert'
+        ],
+        [
+            'perspective' => 'as told by the world\'s worst storyteller',
+            'speaker' => 'rambling storyteller'
+        ],
+        [
+            'perspective' => 'from the perspective of a retired superhero',
+            'speaker' => 'retired superhero'
+        ],
+        [
+            'perspective' => 'as narrated by a conspiracy theorist',
+            'speaker' => 'excitable theorist'
+        ],
+        [
+            'perspective' => 'by someone who missed the point entirely',
+            'speaker' => 'clueless observer'
+        ],
+        [
+            'perspective' => 'as observed by a time traveler from the 1800s',
+            'speaker' => 'astonished time traveler'
+        ],
+        [
+            'perspective' => 'if it happened in medieval times',
+            'speaker' => 'medieval knight'
+        ],
+        [
+            'perspective' => 'but set 100 years in the future',
+            'speaker' => 'future historian'
+        ],
+        [
+            'perspective' => 'as misinterpreted by ancient historians',
+            'speaker' => 'confused historian'
+        ],
+        [
+            'perspective' => 'if it was discovered in an ancient tomb',
+            'speaker' => 'excited archaeologist'
+        ],
+        [
+            'perspective' => 'as explained by a Victorian-era etiquette expert',
+            'speaker' => 'proper Victorian'
+        ],
+        [
+            'perspective' => 'during the height of the disco era',
+            'speaker' => 'groovy disco dancer'
+        ],
+        [
+            'perspective' => 'in the style of a Renaissance artist',
+            'speaker' => 'inspired artist'
+        ],
+        [
+            'perspective' => 'during the first day of the internet',
+            'speaker' => 'amazed internet pioneer'
+        ],
+        [
+            'perspective' => 'as remembered by someone with terrible memory',
+            'speaker' => 'forgetful narrator'
+        ],
+        [
+            'perspective' => 'as interpreted by a group of gossiping squirrels',
+            'speaker' => 'chatty squirrel'
+        ],
+        [
+            'perspective' => 'but it\'s secretly controlled by cats',
+            'speaker' => 'mysterious cat'
+        ],
+        [
+            'perspective' => 'from the perspective of a very judgmental house plant',
+            'speaker' => 'judgmental plant'
+        ],
+        [
+            'perspective' => 'as understood by migratory birds',
+            'speaker' => 'migrating bird'
+        ],
+        [
+            'perspective' => 'as explained by a group of tired zoo animals',
+            'speaker' => 'exhausted zoo animal'
+        ],
+        [
+            'perspective' => 'from the viewpoint of city pigeons',
+            'speaker' => 'street-smart pigeon'
+        ],
+        [
+            'perspective' => 'as discussed by garden gnomes',
+            'speaker' => 'grumpy garden gnome'
+        ],
+        [
+            'perspective' => 'according to neighborhood dogs',
+            'speaker' => 'observant dog'
+        ],
+        [
+            'perspective' => 'as witnessed by confused penguins',
+            'speaker' => 'bewildered penguin'
+        ],
+        [
+            'perspective' => 'from the perspective of a dramatic butterfly',
+            'speaker' => 'dramatic butterfly'
+        ],
+        [
+            'perspective' => 'as explained in a series of confusing emojis',
+            'speaker' => 'emoji enthusiast'
+        ],
+        [
+            'perspective' => 'through an AI chatbot having an existential crisis',
+            'speaker' => 'existential AI'
+        ],
+        [
+            'perspective' => 'as a mindfulness meditation gone wrong',
+            'speaker' => 'anxious meditation guide'
+        ],
+        [
+            'perspective' => 'during a video call with bad internet',
+            'speaker' => 'frozen video caller'
+        ],
+        [
+            'perspective' => 'as a social media influencer\'s sponsored post',
+            'speaker' => 'eager influencer'
+        ],
+        [
+            'perspective' => 'through a dating app bio',
+            'speaker' => 'optimistic dater'
+        ],
+        [
+            'perspective' => 'as explained to tech support at 3 AM',
+            'speaker' => 'tired tech supporter'
+        ],
+        [
+            'perspective' => 'during a failed attempt at meal prep',
+            'speaker' => 'frustrated chef'
+        ],
+        [
+            'perspective' => 'as interpreted by a smart home device',
+            'speaker' => 'confused AI assistant'
+        ],
+        [
+            'perspective' => 'during a yoga class mishap',
+            'speaker' => 'unbalanced yogi'
+        ],
+        [
+            'perspective' => 'as an elaborate insurance claim',
+            'speaker' => 'suspicious claims adjuster'
+        ],
+        [
+            'perspective' => 'during an awkward family holiday dinner',
+            'speaker' => 'uncomfortable relative'
+        ],
+        [
+            'perspective' => 'as a misunderstood fortune cookie message',
+            'speaker' => 'cryptic fortune writer'
+        ],
+        [
+            'perspective' => 'during an airport security check',
+            'speaker' => 'stern security agent'
+        ],
+        [
+            'perspective' => 'as a mysterious crop circle pattern',
+            'speaker' => 'excited UFO enthusiast'
+        ],
+        [
+            'perspective' => 'during a wedding toast gone wrong',
+            'speaker' => 'nervous best man'
+        ],
+        [
+            'perspective' => 'as interpreted by an art gallery critic',
+            'speaker' => 'pretentious art critic'
+        ],
+        [
+            'perspective' => 'during a cooking show disaster',
+            'speaker' => 'frazzled TV chef'
+        ],
+        [
+            'perspective' => 'during a parent-teacher conference',
+            'speaker' => 'exhausted teacher'
+        ],
+        [
+            'perspective' => 'as explained by an eccentric professor',
+            'speaker' => 'eccentric professor'
+        ],
+        [
+            'perspective' => 'during a weather forecast gone poetic',
+            'speaker' => 'dramatic meteorologist'
+        ],
+        [
+            'perspective' => 'as a self-help book chapter',
+            'speaker' => 'inspirational author'
+        ],
+        [
+            'perspective' => 'through an astronaut\'s mission log',
+            'speaker' => 'space-bound astronaut'
+        ],
+        [
+            'perspective' => 'as a archaeological discovery',
+            'speaker' => 'excited archaeologist'
+        ],
+        [
+            'perspective' => 'by a librarian having a rough day',
+            'speaker' => 'irritated librarian'
+        ],
+        [
+            'perspective' => 'during a political campaign speech',
+            'speaker' => 'enthusiastic candidate'
+        ],
+        [
+            'perspective' => 'as a motivational speaker losing motivation',
+            'speaker' => 'dejected motivator'
+        ],
+        [
+            'perspective' => 'through a celebrity\'s autobiography',
+            'speaker' => 'dramatic celebrity'
+        ],
+        [
+            'perspective' => 'as a scientific breakthrough announcement',
+            'speaker' => 'excited scientist'
+        ],
+        [
+            'perspective' => 'as a superhero origin story',
+            'speaker' => 'nervous superhero'
+        ],
+        [
+            'perspective' => 'through interpretive modern dance',
+            'speaker' => 'interpretive dancer'
+        ],
+        [
+            'perspective' => 'as a Broadway musical number',
+            'speaker' => 'theatrical performer'
+        ],
+        [
+            'perspective' => 'during a spelling bee competition',
+            'speaker' => 'anxious contestant'
+        ],
+        [
+            'perspective' => 'as a escape room puzzle',
+            'speaker' => 'mysterious gamemaster'
+        ],
+        [
+            'perspective' => 'through an unboxing video',
+            'speaker' => 'excited reviewer'
+        ],
+        [
+            'perspective' => 'as a medieval tavern tale',
+            'speaker' => 'drunken bard'
+        ],
+        [
+            'perspective' => 'during a magic trick explanation',
+            'speaker' => 'mysterious magician'
+        ],
+        [
+            'perspective' => 'as a nature documentary',
+            'speaker' => 'whispered narrator'
+        ],
+        [
+            'perspective' => 'through a choose-your-own-adventure story',
+            'speaker' => 'indecisive narrator'
+        ],
+        [
+            'perspective' => 'during a GPS recalculation',
+            'speaker' => 'impatient navigator'
+        ],
+        [
+            'perspective' => 'as assembly instructions',
+            'speaker' => 'meticulous instruction writer'
+        ],
+        [
+            'perspective' => 'through a customer service call',
+            'speaker' => 'patient service rep'
+        ],
+        [
+            'perspective' => 'as a grocery store announcement',
+            'speaker' => 'monotone announcer'
+        ],
+        [
+            'perspective' => 'during a gym workout routine',
+            'speaker' => 'energetic trainer'
+        ],
+        [
+            'perspective' => 'through a pet training session',
+            'speaker' => 'patient pet trainer'
+        ],
+        [
+            'perspective' => 'as a recipe blog post introduction',
+            'speaker' => 'verbose food blogger'
+        ],
+        [
+            'perspective' => 'during a laundromat adventure',
+            'speaker' => 'frustrated customer'
+        ],
+        [
+            'perspective' => 'as a parking ticket appeal',
+            'speaker' => 'desperate driver'
+        ],
+        [
+            'perspective' => 'through an elevator small talk',
+            'speaker' => 'awkward stranger'
+        ],
+        [
+            'perspective' => 'as performed by a street mime',
+            'speaker' => 'silent mime'
+        ],
+        [
+            'perspective' => 'during a karaoke night gone wrong',
+            'speaker' => 'enthusiastic singer'
+        ],
+        [
+            'perspective' => 'as explained by someone who just woke up',
+            'speaker' => 'groggy sleeper'
+        ],
+        [
+            'perspective' => 'through a series of passive-aggressive post-it notes',
+            'speaker' => 'passive-aggressive roommate'
+        ],
+        [
+            'perspective' => 'as interpreted by a bored museum security guard',
+            'speaker' => 'bored security guard'
+        ],
+        [
+            'perspective' => 'during a couples\' dance lesson',
+            'speaker' => 'patient dance instructor'
+        ],
+        [
+            'perspective' => 'as told by an overly competitive parent',
+            'speaker' => 'intense soccer parent'
+        ],
+        [
+            'perspective' => 'through a series of emergency texts',
+            'speaker' => 'panicked texter'
+        ],
+        [
+            'perspective' => 'as explained by someone who skimmed the wikipedia article',
+            'speaker' => 'superficial expert'
+        ],
+        [
+            'perspective' => 'during an awkward blind date',
+            'speaker' => 'nervous dater'
+        ],
+        [
+            'perspective' => 'as presented by a substitute teacher',
+            'speaker' => 'unprepared teacher'
+        ],
+        [
+            'perspective' => 'through a series of workplace safety videos',
+            'speaker' => 'concerned safety officer'
+        ],
+        [
+            'perspective' => 'during a children\'s birthday party chaos',
+            'speaker' => 'overwhelmed party planner'
+        ],
+        [
+            'perspective' => 'as interpreted by a fortune teller with poor reception',
+            'speaker' => 'static-filled psychic'
+        ],
+        [
+            'perspective' => 'through an IKEA instruction manual',
+            'speaker' => 'minimalist illustrator'
+        ],
+        [
+            'perspective' => 'as explained by someone stuck in an elevator',
+            'speaker' => 'trapped elevator rider'
+        ],
+        [
+            'perspective' => 'during a black friday shopping spree',
+            'speaker' => 'frenzied shopper'
+        ],
+        [
+            'perspective' => 'as understood by alien anthropologists',
+            'speaker' => 'puzzled alien researcher'
+        ],
+        [
+            'perspective' => 'through a series of angry yelp reviews',
+            'speaker' => 'angry reviewer'
+        ],
+        [
+            'perspective' => 'as explained by a sleep-talking roommate',
+            'speaker' => 'mumbling sleeptalker'
+        ],
+        [
+            'perspective' => 'during a high school reunion',
+            'speaker' => 'nostalgic alumnus'
+        ],
+        [
+            'perspective' => 'as interpreted by a method actor taking it too seriously',
+            'speaker' => 'intense method actor'
+        ],
+        [
+            'perspective' => 'through an overly detailed personality test',
+            'speaker' => 'meticulous psychologist'
+        ],
+        [
+            'perspective' => 'as explained by someone pretending to be an expert',
+            'speaker' => 'confident amateur'
+        ],
+        [
+            'perspective' => 'during a neighborhood watch meeting',
+            'speaker' => 'suspicious neighbor'
+        ],
+        [
+            'perspective' => 'through a series of chain emails',
+            'speaker' => 'urgent forwarder'
+        ],
+        [
+            'perspective' => 'as explained by someone trying to sound important',
+            'speaker' => 'self-important expert'
+        ],
+        [
+            'perspective' => 'during an open house tour',
+            'speaker' => 'eager realtor'
+        ],
+        [
+            'perspective' => 'as interpreted by a coffee-deprived barista',
+            'speaker' => 'caffeine-deprived barista'
+        ],
+        [
+            'perspective' => 'through a series of autocorrect mistakes',
+            'speaker' => 'hasty texter'
+        ],
+        [
+            'perspective' => 'as explained by someone in the wrong meeting',
+            'speaker' => 'confused participant'
+        ],
+        [
+            'perspective' => 'during a mindfulness retreat breakdown',
+            'speaker' => 'anxious meditator'
+        ],
+        [
+            'perspective' => 'as interpreted by a royal court jester',
+            'speaker' => 'mischievous jester'
+        ],
+        [
+            'perspective' => 'through a series of prophecies that keep getting revised',
+            'speaker' => 'uncertain prophet'
+        ],
+        [
+            'perspective' => 'as explained by someone who thinks they\'re whispering',
+            'speaker' => 'loud whisperer'
+        ],
+        [
+            'perspective' => 'during an emergency drill gone wrong',
+            'speaker' => 'panicked coordinator'
+        ],
+        [
+            'perspective' => 'as interpreted by a tired zoo keeper',
+            'speaker' => 'exhausted zookeeper'
+        ],
+        [
+            'perspective' => 'through a series of dad jokes',
+            'speaker' => 'enthusiastic dad'
+        ]
     ];
 
     public function __construct(string $apiKey) {
@@ -281,7 +656,7 @@ class ContentGenerator {
         }
     }
     
-    private function getNextVariation(): string {
+    private function getNextVariation(): array {
         $this->initializeShuffleBag();
         $index = array_pop($_SESSION['variation_bag']);
         return $this->topicVariations[$index];
@@ -300,14 +675,14 @@ class ContentGenerator {
             $topic = self::$defaultTopics[array_rand(self::$defaultTopics)];
         }
 
-        // 80% chance to add a variation
-        $useVariation = (mt_rand(1, 100) <= 80);
+        // % chance to add a variation
+        $useVariation = (mt_rand(1, 100) <= 40);
 
         $topicPhrase = "";
         if ($topic) {
             if ($useVariation) {
                 $variation = $this->getNextVariation();
-                $topicPhrase = $topic . ', ' . $variation;
+                $topicPhrase = $topic . ', ' . $variation['perspective'];
                 $prompt = sprintf($config['prompt'], $topicPhrase);
             } else {
                 $topicPhrase = $topic;
@@ -318,6 +693,7 @@ class ContentGenerator {
         return [
             'prompt' => $prompt,
             'result' => $this->generateContent($prompt, $config['system_prompt'] ?? null),
+            'variation_speaker' => $variation['speaker'] ?? '',
         ];
     }
 
