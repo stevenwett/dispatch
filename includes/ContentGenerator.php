@@ -656,10 +656,11 @@ class ContentGenerator {
         }
     }
     
-    private function getNextVariation(): array {
+    private function getNextVariation(): ?array {
         $this->initializeShuffleBag();
         $index = array_pop($_SESSION['variation_bag']);
-        return $this->topicVariations[$index];
+        
+        return $this->topicVariations[$index] ?? null;
     }
     
 
@@ -678,17 +679,15 @@ class ContentGenerator {
         // % chance to add a variation
         $useVariation = (mt_rand(1, 100) <= 40);
 
-        $topicPhrase = "";
-        if ($topic) {
-            if ($useVariation) {
-                $variation = $this->getNextVariation();
+        $topicPhrase = $topic;
+        if ($topic && $useVariation) {
+            $variation = $this->getNextVariation();
+            if ($variation) {
                 $topicPhrase = $topic . ', ' . $variation['perspective'];
-                $prompt = sprintf($config['prompt'], $topicPhrase);
-            } else {
-                $topicPhrase = $topic;
-                $prompt = sprintf($config['prompt'], $topicPhrase);
             }
         }
+
+        $prompt = sprintf($config['prompt'], $topicPhrase);
 
         return [
             'prompt' => $prompt,
